@@ -6,6 +6,7 @@ export const allowedOrigins = [
 	'0.0.0.0/1',
 	'https://prd-extractor-client.onrender.com',
 	'https://prd-extractor-server.onrender.com',
+	'https://pdftextextractor.netlify.app',
 ]
 // fetch('http://localhost:3500')
 export default allowedOrigins
