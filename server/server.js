@@ -10,6 +10,7 @@ import corsOptions from './config/corsOptions.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import fileUpload from 'express-fileupload'
+import { credentials } from './middleware/credentials.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import fileRoutes from './routes/fileRoutes.js'
@@ -19,13 +20,14 @@ const PORT = process.env.PORT || 5000
 // Connect to MongoDB
 connectDB()
 
-app.use(express.json())
+app.use(credentials)
+app.use(cors(corsOptions))
+
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }))
 app.use(cookieParser())
 app.use(fileUpload())
-// app.use(cors())
-app.use(cors(corsOptions))
 
 app.use('/api/users', userRoutes)
 app.use('/api/files', fileRoutes)
