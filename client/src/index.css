@@ -1,0 +1,10 @@
+:root {
+	--cust-prime: #343a40;
+	--cust-second: #bfacc8;
+	--cust-bg: #c8c6d7;
+	--cust-acc: #783f8e;
+	--cust-acc-dark: #4f1271;
+}
+.collapse {
+	transition: height 0.5s ease-in-out;
+}
