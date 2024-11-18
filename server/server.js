@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import path from 'path'
+import { fileURLToPath } from 'url'
 import express from 'express'
 import helmet from 'helmet'
 const app = express()
@@ -33,13 +34,18 @@ app.use('/api/users', userRoutes)
 app.use('/api/files', fileRoutes)
 
 if (process.env.NODE_ENV === 'production') {
-	const __dirname = path.resolve()
+	const __filename = fileURLToPath(import.meta.url)
+	const __dirname = path.dirname(__filename)
+	console.log(__dirname)
+	app.use(express.static(path.join(__dirname, '../client/dist')))
+	app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/dist/index.html')))
+	// const __dirname = path.resolve()
 
-	app.use(express.static(path.join(__dirname, 'client', 'dist')))
-	app.use('/assets', express.static(path.join(__dirname, 'client', 'dist', 'assets')))
-	app.get('*', (req, res) =>
-		res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html')),
-	)
+	// app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
+	// app.use('/assets', express.static(path.join(__dirname, '..', 'client', 'dist', 'assets')))
+	// app.get('*', (req, res) =>
+	// 	res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html')),
+	// )
 } else {
 	app.get('/', (req, res) => {
 		res.send('API is running')
