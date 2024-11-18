@@ -7,8 +7,10 @@ export const generateToken = (res, userId) => {
 
 	res.cookie('jwt', token, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
-		sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict', // Prevent CSRF attacks
+		secure: true,
+		sameSite: 'None',
+		// secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
+		// sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict', // Prevent CSRF attacks
 		maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
 	})
 
@@ -20,8 +22,10 @@ export const generateRefreshToken = (res, userId) => {
 
 	res.cookie('jwt_refresh', refreshToken, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV !== 'development',
-		sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict',
+		secure: true,
+		sameSite: 'None',
+		// secure: process.env.NODE_ENV !== 'development',
+		// sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict',
 		maxAge: 4 * 24 * 60 * 60 * 1000,
 	})
 
